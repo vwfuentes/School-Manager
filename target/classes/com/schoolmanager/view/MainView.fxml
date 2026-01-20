@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.schoolmanager.controller.MainViewController" spacing="10" alignment="CENTER" prefWidth="900">
+    <HBox spacing="10">
+        <Button fx:id="uploadButton" text="Subir archivo CSV" onAction="#handleUpload"/>
+        <ProgressIndicator fx:id="loadingIndicator" visible="false"/>
+    </HBox>
+    <TableView fx:id="studentTable" prefHeight="400" prefWidth="850">
+        <columns>
+            <TableColumn text="Nombre" fx:id="nombreCol" prefWidth="120"/>
+            <TableColumn text="Apellido Materno" fx:id="apellidoMaternoCol" prefWidth="120"/>
+            <TableColumn text="Apellido Paterno" fx:id="apellidoPaternoCol" prefWidth="120"/>
+            <TableColumn text="Edad" fx:id="edadCol" prefWidth="60"/>
+            <TableColumn text="Curso" fx:id="cursoCol" prefWidth="100"/>
+            <TableColumn text="Celular" fx:id="celularCol" prefWidth="120"/>
+        </columns>
+    </TableView>
+    <Label text="Doble click en una fila para editar"/>
+</VBox>
