@@ -1,6 +1,7 @@
 package com.schoolmanager.model;
 
 public class Student {
+
     private int id;
     private String nombre;
     private String apellidoMaterno;
