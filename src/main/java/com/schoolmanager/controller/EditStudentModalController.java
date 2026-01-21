@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class EditStudentModalController {
+
     private Student student;
     private boolean isNewStudent = false;
 

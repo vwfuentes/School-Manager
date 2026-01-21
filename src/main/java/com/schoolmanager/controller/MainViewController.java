@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainViewController {
+
     @FXML private TableView<Student> studentTable;
     @FXML private TableColumn<Student, String> nombreCol;
     @FXML private TableColumn<Student, String> apellidoMaternoCol;

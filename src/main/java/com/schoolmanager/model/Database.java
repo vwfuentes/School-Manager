@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Database {
+
     private static final String DB_URL = "jdbc:sqlite:school.db";
 
     public static void init() throws SQLException {
