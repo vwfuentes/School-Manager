@@ -32,7 +32,13 @@ Si el comando finaliza sin errores, las dependencias están listas para usar.
    mvn clean install
    ```
 
-3. **Ejecuta la aplicación**
+3. **Crea un ejecutable (JAR)**
+   ```
+   mvn clean package
+   ```
+   El archivo ejecutable se generará en la carpeta `target/`, normalmente con el nombre `School-Manager-1.0-SNAPSHOT.jar`.
+
+4. **Ejecuta la aplicación**
    ```
    mvn javafx:run
    ```
@@ -118,6 +124,51 @@ nombre,apellidoMaterno,apellidoPaterno,edad,curso,celular,nombrePadre,apellidoPa
     mvn -version
     ```
   Si el comando muestra la versión de Maven, ya está instalado correctamente.
+
+## ¿Dónde se crea el ejecutable?
+
+El archivo ejecutable `.jar` se crea automáticamente en la carpeta `target/` al ejecutar el comando:
+
+```
+mvn clean package
+```
+
+Por ejemplo, el archivo generado será:
+
+```
+target/School-Manager-1.0-SNAPSHOT.jar
+```
+
+## ¿Cómo ejecuto el ejecutable?
+
+Para ejecutar la aplicación desde el archivo JAR generado, usa el siguiente comando en la terminal:
+
+```
+java -jar target/School-Manager-1.0-SNAPSHOT.jar
+```
+
+> **Nota importante:**  
+> Si obtienes un error como  
+> `Error: Could not find or load main class com.schoolmanager.Main`  
+> o  
+> `Caused by: java.lang.NoClassDefFoundError: javafx/application/Application`  
+> significa que JavaFX no está en el classpath.  
+> 
+> Para ejecutar el JAR directamente, necesitas agregar el módulo-path de JavaFX. Por ejemplo:
+>
+> ```
+> java --module-path /ruta/a/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -jar target/School-Manager-1.0-SNAPSHOT.jar
+> ```
+>
+> Cambia `/ruta/a/javafx-sdk/lib` por la ruta real donde tienes descargado el JavaFX SDK.
+>
+> Si usas Maven, simplemente ejecuta:
+>
+> ```
+> mvn javafx:run
+> ```
+>
+> y Maven se encargará del classpath automáticamente.
 
 ## Créditos
 
