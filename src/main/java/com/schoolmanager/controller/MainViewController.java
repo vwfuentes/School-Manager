@@ -32,6 +32,7 @@ public class MainViewController {
     @FXML private TableColumn<Student, String> celularCol;
     @FXML private ProgressIndicator loadingIndicator;
     @FXML private Button uploadButton;
+    @FXML private Button addButton;
 
     private ObservableList<Student> students = FXCollections.observableArrayList();
 
@@ -89,6 +90,27 @@ public class MainViewController {
                 }
             };
             new Thread(task).start();
+        }
+    }
+
+    @FXML
+    private void handleAddStudent(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/schoolmanager/view/EditStudentModal.fxml"));
+            Parent root = loader.load();
+            EditStudentModalController controller = loader.getController();
+            Student newStudent = new Student();
+            controller.setStudent(newStudent);
+            controller.setNewStudentMode(true); // Indica que es un nuevo estudiante
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Agregar Estudiante");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            students.clear();
+            students.addAll(Database.getAllStudents());
+        } catch (Exception e) {
+            showError("Error mostrando modal: " + e.getMessage());
         }
     }
 

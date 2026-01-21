@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 public class EditStudentModalController {
     private Student student;
+    private boolean isNewStudent = false;
 
     @FXML private TextField nombreField;
     @FXML private TextField apellidoMaternoField;
@@ -25,18 +26,22 @@ public class EditStudentModalController {
 
     public void setStudent(Student s) {
         this.student = s;
-        nombreField.setText(s.getNombre());
-        apellidoMaternoField.setText(s.getApellidoMaterno());
-        apellidoPaternoField.setText(s.getApellidoPaterno());
-        edadField.setText(String.valueOf(s.getEdad()));
-        cursoField.setText(s.getCurso());
-        celularField.setText(s.getCelular());
-        nombrePadreField.setText(s.getNombrePadre());
-        apellidoPadreField.setText(s.getApellidoPadre());
-        nombreMadreField.setText(s.getNombreMadre());
-        apellidoMadreField.setText(s.getApellidoMadre());
-        celularPadreField.setText(s.getCelularPadre());
-        celularMadreField.setText(s.getCelularMadre());
+        if (s.getNombre() != null) nombreField.setText(s.getNombre());
+        if (s.getApellidoMaterno() != null) apellidoMaternoField.setText(s.getApellidoMaterno());
+        if (s.getApellidoPaterno() != null) apellidoPaternoField.setText(s.getApellidoPaterno());
+        if (s.getEdad() != 0) edadField.setText(String.valueOf(s.getEdad()));
+        if (s.getCurso() != null) cursoField.setText(s.getCurso());
+        if (s.getCelular() != null) celularField.setText(s.getCelular());
+        if (s.getNombrePadre() != null) nombrePadreField.setText(s.getNombrePadre());
+        if (s.getApellidoPadre() != null) apellidoPadreField.setText(s.getApellidoPadre());
+        if (s.getNombreMadre() != null) nombreMadreField.setText(s.getNombreMadre());
+        if (s.getApellidoMadre() != null) apellidoMadreField.setText(s.getApellidoMadre());
+        if (s.getCelularPadre() != null) celularPadreField.setText(s.getCelularPadre());
+        if (s.getCelularMadre() != null) celularMadreField.setText(s.getCelularMadre());
+    }
+
+    public void setNewStudentMode(boolean isNew) {
+        this.isNewStudent = isNew;
     }
 
     @FXML
@@ -44,7 +49,12 @@ public class EditStudentModalController {
         student.setNombre(nombreField.getText());
         student.setApellidoMaterno(apellidoMaternoField.getText());
         student.setApellidoPaterno(apellidoPaternoField.getText());
-        student.setEdad(Integer.parseInt(edadField.getText()));
+        try {
+            student.setEdad(Integer.parseInt(edadField.getText()));
+        } catch (NumberFormatException e) {
+            showError("Edad inválida");
+            return;
+        }
         student.setCurso(cursoField.getText());
         student.setCelular(celularField.getText());
         student.setNombrePadre(nombrePadreField.getText());
@@ -54,11 +64,19 @@ public class EditStudentModalController {
         student.setCelularPadre(celularPadreField.getText());
         student.setCelularMadre(celularMadreField.getText());
         try {
-            Database.updateStudent(student);
+            if (isNewStudent) {
+                Database.insertStudents(java.util.Collections.singletonList(student));
+            } else {
+                Database.updateStudent(student);
+            }
             ((Stage) saveButton.getScene().getWindow()).close();
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Error actualizando estudiante: " + e.getMessage(), ButtonType.OK);
-            alert.showAndWait();
+            showError("Error guardando estudiante: " + e.getMessage());
         }
+    }
+
+    private void showError(String msg) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, msg, ButtonType.OK);
+        alert.showAndWait();
     }
 }

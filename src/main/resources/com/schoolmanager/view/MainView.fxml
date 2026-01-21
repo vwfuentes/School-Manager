@@ -7,6 +7,7 @@
       fx:controller="com.schoolmanager.controller.MainViewController" spacing="10" alignment="CENTER" prefWidth="900">
     <HBox spacing="10">
         <Button fx:id="uploadButton" text="Subir archivo CSV" onAction="#handleUpload"/>
+        <Button fx:id="addButton" text="Agregar Estudiante" onAction="#handleAddStudent"/>
         <ProgressIndicator fx:id="loadingIndicator" visible="false"/>
     </HBox>
     <TableView fx:id="studentTable" prefHeight="400" prefWidth="850">
